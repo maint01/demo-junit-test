@@ -12,8 +12,14 @@ public class StringUtilTest {
     }
 
     @Test
-    public void caseGood(){
+    public void standardString_OK(){
         String s = "tRan VAn nguyen";
         Assert.assertEquals("Tran Van Nguyen", stringUtil.standardString(s));
+    }
+
+    @Test
+    public void findCharacterNotMatchRegex_OK(){
+        String s = "tRan VAn nguyen000";
+        Assert.assertEquals("tRan VAn nguyen", stringUtil.findCharacterNotMatchRegex(s,"[0-9]"));
     }
 }
