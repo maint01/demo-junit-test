@@ -1,12 +1,14 @@
 package com.itsol.junit.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DemoController {
     @GetMapping("/")
-    public String goToIndex(){
+    public String goToIndex(Model model){
+        model.addAttribute("app-name", "JUNIT-TEST");
         return "index";
     }
     @GetMapping("/home")

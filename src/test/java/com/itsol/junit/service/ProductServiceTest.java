@@ -23,7 +23,7 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    public void findAllTest(){
+    public void findAll_OK(){
         Product product = new Product();
         product.setProductName(DEFAULT_PRODUCT_NAME);
         product.setQuantity(100L);
@@ -48,14 +48,14 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findByIdNotExist() {
+    public void findByIdNotExist_OK() {
         productService.delete(-1L);
         Product product = productService.findById(-1L);
         Assert.assertNull(product);
     }
 
     @Test
-    public void findByIdExist() {
+    public void findByIdExist_OK() {
         Product product = new Product();
         product.setProductName(DEFAULT_PRODUCT_NAME);
         product.setQuantity(100L);
@@ -66,7 +66,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void updateTest() {
+    public void update_OK() {
         Product product = new Product();
         product.setProductName(DEFAULT_PRODUCT_NAME);
         product.setQuantity(100L);
@@ -82,7 +82,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void deleteTest() {
+    public void delete_OK() {
         Product product = new Product();
         product.setProductName(DEFAULT_PRODUCT_NAME);
         product.setQuantity(100L);
