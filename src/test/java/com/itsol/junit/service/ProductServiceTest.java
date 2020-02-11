@@ -1,7 +1,7 @@
 package com.itsol.junit.service;
 
 import com.itsol.junit.config.AppProfileConstants;
-import com.itsol.junit.entities.Product;
+import com.itsol.junit.dto.ProductDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,25 +24,19 @@ public class ProductServiceTest {
 
     @Test
     public void findAll_OK(){
-        Product product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME);
-        product.setQuantity(100L);
+        ProductDto product = new ProductDto(null, DEFAULT_PRODUCT_NAME, 100L);
         productService.save(product);
-        product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME_2);
-        product.setQuantity(100L);
+        product = new ProductDto(null, DEFAULT_PRODUCT_NAME_2, 100L);
         productService.save(product);
-        List<Product> lstProduct = productService.findAll();
+        List<ProductDto> lstProduct = productService.findAll();
         Assert.assertEquals(2, lstProduct.size());
         lstProduct.forEach(x->productService.delete(x));
     }
 
     @Test
     public void insertTest() {
-        Product product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME);
-        product.setQuantity(100L);
-        productService.save(product);
+        ProductDto product = new ProductDto(null, DEFAULT_PRODUCT_NAME, 100L);
+        product = productService.save(product);
         Assert.assertNotNull(product.getId());
         productService.delete(product);
     }
@@ -50,16 +44,14 @@ public class ProductServiceTest {
     @Test
     public void findByIdNotExist_OK() {
         productService.delete(-1L);
-        Product product = productService.findById(-1L);
+        ProductDto product = productService.findById(-1L);
         Assert.assertNull(product);
     }
 
     @Test
     public void findByIdExist_OK() {
-        Product product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME);
-        product.setQuantity(100L);
-        productService.save(product);
+        ProductDto product = new ProductDto(null, DEFAULT_PRODUCT_NAME, 100L);
+        product = productService.save(product);
         product = productService.findById(product.getId());
         Assert.assertNotNull(product);
         productService.delete(product);
@@ -67,10 +59,8 @@ public class ProductServiceTest {
 
     @Test
     public void update_OK() {
-        Product product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME);
-        product.setQuantity(100L);
-        productService.save(product);
+        ProductDto product = new ProductDto(null, DEFAULT_PRODUCT_NAME, 100L);
+        product = productService.save(product);
         product = productService.findById(product.getId());
         product.setQuantity(200L);
         product.setProductName(DEFAULT_PRODUCT_NAME_2);
@@ -83,10 +73,8 @@ public class ProductServiceTest {
 
     @Test
     public void delete_OK() {
-        Product product = new Product();
-        product.setProductName(DEFAULT_PRODUCT_NAME);
-        product.setQuantity(100L);
-        productService.save(product);
+        ProductDto product = new ProductDto(null, DEFAULT_PRODUCT_NAME, 100L);
+        product = productService.save(product);
         Assert.assertNotNull(product.getId());
         productService.delete(product);
         product = productService.findById(product.getId());
