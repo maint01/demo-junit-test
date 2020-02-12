@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DemoController {
     @GetMapping("/")
     public String goToIndex(Model model){
-        model.addAttribute("app-name", "JUNIT-TEST");
+        model.addAttribute("appName", "JUNIT-TEST");
+        model.addAttribute("someText", "someText");
         return "index";
     }
     @GetMapping("/home")

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Index</title>
 </head>
 <body>
-<span>${app-name}</span>
+<span th:text="${appName}"></span>
+<div>
+    <input type="text" id="" th:value="${someText}"/>
+</div>
 <a href="/home" id="home">Go To Home</a>
 </body>
 </html>

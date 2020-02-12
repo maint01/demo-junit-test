@@ -1,5 +1,6 @@
 package com.itsol.junit.controller;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,10 +33,10 @@ public class DemoControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
-                .andExpect(model().attribute("app-name","JUNIT-TEST"))
-                .andExpect(model().attributeExists("app-name"))
-//                .andExpect(content().string("test"))
-                ;
+                .andExpect(model().attributeExists("appName", "someText"))
+                .andExpect(content().string(Matchers.containsString("JUNIT-TEST")))
+                .andExpect(xpath("//title").string("Index"))
+                .andExpect(xpath("//input[@value='someText']").exists());
     }
 
 }
