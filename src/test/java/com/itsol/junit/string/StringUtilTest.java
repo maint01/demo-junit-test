@@ -1,25 +1,22 @@
 package com.itsol.junit.string;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 
-public class StringUtilTest {
+public class StringUtilTest extends TestCase {
     private StringUtil stringUtil;
-    @Before
-    public void beforeMethod(){
+
+    @Override
+    protected void setUp() throws Exception {
         stringUtil = new StringUtil();
     }
 
-    @Test
-    public void standardString_OK(){
+    public void testStandardString_OK(){
         String s = "tRan VAn nguyen";
-        Assert.assertEquals("Tran Van Nguyen", stringUtil.standardString(s));
+        assertEquals("Tran Van Nguyen", stringUtil.standardString(s));
     }
 
-    @Test
-    public void findCharacterNotMatchRegex_OK(){
+    public void testFindCharacterNotMatchRegex_OK(){
         String s = "tRan VAn nguyen000";
-        Assert.assertEquals("tRan VAn nguyen", stringUtil.findCharacterNotMatchRegex(s,"[0-9]"));
+        assertEquals("tRan VAn nguyen", stringUtil.findCharacterNotMatchRegex(s,"[0-9]"));
     }
 }
