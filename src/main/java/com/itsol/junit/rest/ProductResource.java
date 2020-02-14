@@ -44,8 +44,6 @@ public class ProductResource {
         log.info("REST to get create product: {}", product);
         try {
             product = productService.save(product);
-            if (product == null)
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>(product, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error(e.getMessage(), e);

@@ -39,4 +39,12 @@ public class DemoControllerTest {
                 .andExpect(xpath("//input[@value='someText']").exists());
     }
 
+    @Test
+    public void testRedirectHomePage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/home"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
+                .andExpect(xpath("//title").string("Home"));
+    }
+
 }

@@ -6,6 +6,7 @@ import com.itsol.junit.dto.ProductDto;
 import com.itsol.junit.exception.RecordNotFoundException;
 import com.itsol.junit.service.ProductService;
 import org.hamcrest.Matchers;
+import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -144,6 +146,17 @@ public class ProductResourceTest {
         Mockito.verify(productService, Mockito.times(1)).update(product1);
     }
 
+    @Test
+    public void updateProduct_intern_server_error() throws Exception {
+        ProductDto product1 = new ProductDto(1L, "product", 1234L);
+        Mockito.doThrow(JpaSystemException.class).when(productService).update(product1);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/product/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(product1)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isInternalServerError());
+        Mockito.verify(productService, Mockito.times(1)).update(product1);
+    }
 
     private String toJson(Object object) {
         try {
