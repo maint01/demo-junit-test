@@ -13,9 +13,9 @@ public class StringUtil {
         StringTokenizer stringTokenizer = new StringTokenizer(s, " ");
         StringBuilder stringBuilder = new StringBuilder();
         while (stringTokenizer.hasMoreTokens()) {
-            String element = stringTokenizer.nextToken();
-            if (StringUtils.isBlank(element))
-                continue;
+            String element = stringTokenizer.nextToken().trim();
+//            if (StringUtils.isBlank(element))
+//                continue;
             stringBuilder.append(element.substring(0, 1).toUpperCase());
             if (element.length() > 1)
                 stringBuilder.append(element.substring(1).toLowerCase());
